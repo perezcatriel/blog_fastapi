@@ -14,6 +14,7 @@ class ArticuloORM(Base):
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String, index=True)
     contenido = Column(String)
+    imagen = Column(String)
     fecha_publicacion = Column(DateTime)
     autor = Column(String, index=True)
 
@@ -22,6 +23,7 @@ class ArticuloORM(Base):
 class ArticuloBase(BaseModel):
     titulo: str
     contenido: str
+    imagen: Optional[str] = None
     autor: Optional[str] = None
 
 
@@ -33,6 +35,7 @@ class ArticuloResponse(BaseModel):
     id: int
     titulo: str
     contenido: str
+    imagen: str
     fecha_publicacion: datetime
     autor: Optional[str]
 

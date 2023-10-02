@@ -18,7 +18,7 @@ articulo_router = APIRouter()
 def crear_articulo(articulo: ArticuloCreate):
     caso_uso = CrearArticulo()
     return caso_uso.ejecutar(
-            articulo.titulo, articulo.contenido,
+            articulo.titulo, articulo.contenido, articulo.imagen,
             articulo.autor
             )
 
@@ -34,7 +34,8 @@ def obtener_articulo(id: int):
     caso_uso = ObtenerArticuloPorID()  # Crear instancia del caso de uso
     try:
         articulo = caso_uso.ejecutar(id)
-
+        if articulo.imagen is None:
+            articulo.imagen = "Sin imagen"
         if articulo.autor is None:
             articulo.autor = "Desconocido"  # o cualquier valor predeterminado que desees
 
@@ -43,6 +44,7 @@ def obtener_articulo(id: int):
                 id=articulo.id,
                 titulo=articulo.titulo,
                 contenido=articulo.contenido,
+                imagen=articulo.imagen,
                 fecha_publicacion=articulo.fecha_publicacion,
                 autor=articulo.autor
                 )
@@ -57,7 +59,7 @@ def obtener_articulo(id: int):
 def actualizar_articulo(id: int, articulo: ArticuloCreate):
     caso_uso = ActualizarArticulo()
     return caso_uso.ejecutar(
-            id, articulo.titulo, articulo.contenido,
+            id, articulo.titulo, articulo.contenido, articulo.imagen,
             articulo.autor
             )
 
