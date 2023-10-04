@@ -1,11 +1,10 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String, JSON
 
-from database import Base
-
+from database import Base  # Asegúrate de que esta importación es correcta
 
 # Modelo ORM
 class ArticuloORM(Base):
@@ -13,33 +12,55 @@ class ArticuloORM(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String, index=True)
-    contenido = Column(String)
+    autor = Column(JSON)  # Lista de strings
+    resumen = Column(String)
+    palabras_claves = Column(JSON)  # Lista de strings
+    introduccion = Column(String)
+    metodologia = Column(String)
+    resultados = Column(String)
+    discusion = Column(String)
+    conclusion = Column(String)
+    agradecimiento = Column(JSON)  # Lista de strings
+    referencias = Column(JSON)  # Lista de strings
+    apendices = Column(JSON)  # Lista de strings
     imagen = Column(String)
     fecha_publicacion = Column(DateTime)
-    autor = Column(String, index=True)
-
 
 # Modelos Pydantic
 class ArticuloBase(BaseModel):
     titulo: str
-    contenido: str
+    autor: Optional[List[str]] = ["Catriel Pérez"]
+    resumen: str
+    palabras_claves: List[str]
+    introduccion: str
+    metodologia: Optional[str] = None
+    resultados: Optional[str] = None
+    discusion: Optional[str] = None
+    conclusion: str
+    agradecimiento: Optional[List[str]] = None
+    referencias: Optional[List[str]] = None
+    apendices: List[str] = ["datacraft.vercel.app"]
     imagen: Optional[str] = None
-    autor: Optional[str] = None
-
 
 class ArticuloCreate(ArticuloBase):
     pass
 
-
 class ArticuloResponse(BaseModel):
     id: int
     titulo: str
-    contenido: str
+    autor: List[str]
+    resumen: str
+    palabras_claves: List[str]
+    introduccion: str
+    metodologia: str
+    resultados: str
+    discusion: str
+    conclusion: str
+    agradecimiento: List[str]
+    referencias: List[str]
+    apendices: List[str]
     imagen: str
     fecha_publicacion: datetime
-    autor: Optional[str]
 
     class Config:
         orm_mode = True
-
-
