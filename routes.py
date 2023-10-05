@@ -21,15 +21,12 @@ def crear_articulo(articulo: ArticuloCreate):
         autor=articulo.autor,
         resumen=articulo.resumen,
         palabras_claves=articulo.palabras_claves,
-        introduccion=articulo.introduccion,
-        metodologia=articulo.metodologia,
-        resultados=articulo.resultados,
-        discusion=articulo.discusion,
-        conclusion=articulo.conclusion,
-        agradecimiento=articulo.agradecimiento,
-        referencias=articulo.referencias,
-        apendices=articulo.apendices,
-        imagen=articulo.imagen
+        imagen=articulo.imagen,
+        avatar=articulo.avatar,
+        seguir=articulo.seguir,
+        formulario=articulo.formulario,
+        interacciones=articulo.interacciones,
+        documento=articulo.documento
     )
 
 @articulo_router.get("/articulos/", response_model=List[ArticuloResponse])
@@ -53,16 +50,13 @@ def obtener_articulo(id: int):
             autor=articulo.autor,
             resumen=articulo.resumen,
             palabras_claves=articulo.palabras_claves,
-            introduccion=articulo.introduccion,
-            metodologia=articulo.metodologia,
-            resultados=articulo.resultados,
-            discusion=articulo.discusion,
-            conclusion=articulo.conclusion,
-            agradecimiento=articulo.agradecimiento,
-            referencias=articulo.referencias,
-            apendices=articulo.apendices,
             imagen=articulo.imagen,
-            fecha_publicacion=articulo.fecha_publicacion
+            avatar=articulo.avatar,
+            seguir=articulo.seguir,
+            formulario=articulo.formulario,
+            interacciones=articulo.interacciones,
+            fecha_publicacion=articulo.fecha_publicacion,
+            documento=articulo.documento
         )
 
     except ValueError as e:
@@ -79,15 +73,12 @@ def actualizar_articulo(id: int, articulo: ArticuloCreate):
         autor=articulo.autor,
         resumen=articulo.resumen,
         palabras_claves=articulo.palabras_claves,
-        introduccion=articulo.introduccion,
-        metodologia=articulo.metodologia,
-        resultados=articulo.resultados,
-        discusion=articulo.discusion,
-        conclusion=articulo.conclusion,
-        agradecimiento=articulo.agradecimiento,
-        referencias=articulo.referencias,
-        apendices=articulo.apendices,
-        imagen=articulo.imagen
+        imagen=articulo.imagen,
+        avatar=articulo.avatar,
+        seguir=articulo.seguir,
+        formulario=articulo.formulario,
+        interacciones=articulo.interacciones,
+        documento=articulo.documento
     )
 
 @articulo_router.delete("/articulos/{id}/")

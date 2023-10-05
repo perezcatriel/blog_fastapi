@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional, List
 
 from pydantic import BaseModel
-from sqlalchemy import Column, DateTime, Integer, String, JSON
+from sqlalchemy import Column, DateTime, Integer, String, JSON, Boolean
 
 from database import Base  # Asegúrate de que esta importación es correcta
 
@@ -15,16 +15,13 @@ class ArticuloORM(Base):
     autor = Column(JSON)  # Lista de strings
     resumen = Column(String)
     palabras_claves = Column(JSON)  # Lista de strings
-    introduccion = Column(String)
-    metodologia = Column(String)
-    resultados = Column(String)
-    discusion = Column(String)
-    conclusion = Column(String)
-    agradecimiento = Column(JSON)  # Lista de strings
-    referencias = Column(JSON)  # Lista de strings
-    apendices = Column(JSON)  # Lista de strings
     imagen = Column(String)
+    avatar = Column(String)  # Nueva columna para el avatar
+    seguir = Column(Boolean, default=False)  # Nueva columna para seguir
+    formulario = Column(JSON)  # Objeto con pregunta y respuesta
+    interacciones = Column(JSON)  # Objeto con me gustas, comentarios y compartidos
     fecha_publicacion = Column(DateTime)
+    documento = Column(JSON)  # Objeto que agrupa las secciones del documento
 
 # Modelos Pydantic
 class ArticuloBase(BaseModel):
@@ -32,15 +29,21 @@ class ArticuloBase(BaseModel):
     autor: Optional[List[str]] = ["Catriel Pérez"]
     resumen: str
     palabras_claves: List[str]
-    introduccion: str
-    metodologia: Optional[str] = None
-    resultados: Optional[str] = None
-    discusion: Optional[str] = None
-    conclusion: str
-    agradecimiento: Optional[List[str]] = None
-    referencias: Optional[List[str]] = None
-    apendices: List[str] = ["datacraft.vercel.app"]
     imagen: Optional[str] = None
+    avatar: Optional[str] = None
+    seguir: Optional[bool] = False
+    formulario: Optional[dict] = {"pregunta": "", "respuesta": 3}
+    interacciones: Optional[dict] = {"me_gustas": 0, "comentarios": 0, "compartidos": 0}
+    documento: dict = {
+        "introduccion": "",
+        "metodologia": "",
+        "resultados": "",
+        "discusion": "",
+        "conclusion": "",
+        "agradecimiento": [],
+        "referencias": [],
+        "apendices": ["datacraft.vercel.app"]
+    }
 
 class ArticuloCreate(ArticuloBase):
     pass
@@ -51,16 +54,13 @@ class ArticuloResponse(BaseModel):
     autor: List[str]
     resumen: str
     palabras_claves: List[str]
-    introduccion: str
-    metodologia: str
-    resultados: str
-    discusion: str
-    conclusion: str
-    agradecimiento: List[str]
-    referencias: List[str]
-    apendices: List[str]
     imagen: str
+    avatar: str
+    seguir: bool
+    formulario: dict
+    interacciones: dict
     fecha_publicacion: datetime
+    documento: dict
 
     class Config:
         orm_mode = True

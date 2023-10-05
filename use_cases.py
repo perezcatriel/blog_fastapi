@@ -13,17 +13,15 @@ class CrearArticulo:
         self,
         titulo: str,
         resumen: str,
-        palabras_claves: str,
-        introduccion: str,
-        conclusion: str,
-        autor: Optional[str] = "Catriel Pérez",
-        metodologia: Optional[str] = None,
-        resultados: Optional[str] = None,
-        discusion: Optional[str] = None,
-        agradecimiento: Optional[str] = None,
-        referencias: Optional[str] = None,
-        apendices: Optional[str] = "datacraft.vercel.app",
-        imagen: Optional[str] = None
+        palabras_claves: List[str],
+        imagen: str,
+        documento: dict,
+        autor: Optional[List[str]] = ["Catriel Pérez"],
+        avatar: Optional[str] = None,
+        seguir: Optional[bool] = False,
+        formulario: Optional[dict] = None,
+        interacciones: Optional[dict] = None,
+
     ) -> ArticuloORM:
         with SessionLocal() as db:
             fecha_publicacion = datetime.now()
@@ -32,15 +30,12 @@ class CrearArticulo:
                 autor=autor,
                 resumen=resumen,
                 palabras_claves=palabras_claves,
-                introduccion=introduccion,
-                metodologia=metodologia,
-                resultados=resultados,
-                discusion=discusion,
-                conclusion=conclusion,
-                agradecimiento=agradecimiento,
-                referencias=referencias,
-                apendices=apendices,
                 imagen=imagen,
+                avatar=avatar,
+                seguir=seguir,
+                formulario=formulario,
+                interacciones=interacciones,
+                documento=documento,
                 fecha_publicacion=fecha_publicacion
             )
             db.add(articulo_orm)
@@ -48,6 +43,7 @@ class CrearArticulo:
             db.refresh(articulo_orm)
 
         return articulo_orm
+
 
 
 class ObtenerArticuloPorID:
@@ -67,17 +63,14 @@ class ActualizarArticulo:
         id: int,
         titulo: str,
         resumen: str,
-        conclusion: str,
-        palabras_claves: str,
-        introduccion: str,
-        autor: Optional[str] = "Catriel Pérez",
-        metodologia: Optional[str] = None,
-        resultados: Optional[str] = None,
-        discusion: Optional[str] = None,
-        agradecimiento: Optional[str] = None,
-        referencias: Optional[str] = None,
-        apendices: Optional[str] = "datacraft.vercel.app",
-        imagen: Optional[str] = None
+        palabras_claves: List[str],
+        imagen: str,
+        documento: dict,
+        autor: Optional[List[str]] = ["Catriel Pérez"],
+        avatar: Optional[str] = None,
+        seguir: Optional[bool] = False,
+        formulario: Optional[dict] = None,
+        interacciones: Optional[dict] = None,
     ) -> ArticuloORM:
         with SessionLocal() as db:
             articulo_orm = db.query(ArticuloORM).filter(
@@ -91,19 +84,15 @@ class ActualizarArticulo:
             articulo_orm.autor = autor
             articulo_orm.resumen = resumen
             articulo_orm.palabras_claves = palabras_claves
-            articulo_orm.introduccion = introduccion
-            articulo_orm.metodologia = metodologia
-            articulo_orm.resultados = resultados
-            articulo_orm.discusion = discusion
-            articulo_orm.conclusion = conclusion
-            articulo_orm.agradecimiento = agradecimiento
-            articulo_orm.referencias = referencias
-            articulo_orm.apendices = apendices
             articulo_orm.imagen = imagen
+            articulo_orm.avatar = avatar
+            articulo_orm.seguir = seguir
+            articulo_orm.formulario = formulario
+            articulo_orm.interacciones = interacciones
+            articulo_orm.documento = documento
             db.commit()
             db.refresh(articulo_orm)
         return articulo_orm
-
 
 class EliminarArticulo:
     def ejecutar(self, id: int) -> None:
