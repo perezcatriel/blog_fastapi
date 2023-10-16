@@ -6,10 +6,15 @@ from routes import articulo_router
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:8080",  # Asume que tu aplicación Vue se ejecuta en localhost:8080
+    "https://tu-dominio-vue.com",  # Reemplaza con el dominio de tu aplicación Vue si está en producción
+]
+
 # Configuración de CORS
 app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
