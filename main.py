@@ -8,7 +8,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:8080",  # Asume que tu aplicación Vue se ejecuta en localhost:8080
-    "https://datacraft.vercel.app/blog",  # Reemplaza con el dominio de tu aplicación Vue si está en producción
+    "https://datacraft.vercel.app",  # Reemplaza con el dominio de tu aplicación Vue si está en producción
 ]
 
 # Configuración de CORS
